@@ -1,0 +1,126 @@
+
+entity User {
+	name String,
+    firstName String,
+    email String,
+    userId String
+    active Boolean
+}
+entity SigningUser {
+    provider Boolean,
+    handler Boolean
+}
+
+entity Role {
+	name String,
+    active Boolean
+}
+
+entity RoleUser {
+	from Date,
+    until Date
+}
+
+entity SigningApplicationConnective {
+	connectiveDocumentGroupName String
+}
+
+entity Gateway {
+	name String,
+    type String,
+    prefixTable String,
+    active Boolean
+}
+
+entity Provider {
+	name String, 
+    description String,
+    authenticationTypeName String,
+    active Boolean
+}
+
+entity DocumentType {
+	name String,
+    description String,
+    active Boolean
+}
+
+entity Application {
+	name String,
+    code String,
+    active Boolean
+}
+
+entity ProviderCredentials {
+	url String,
+    username String,
+    secret String
+}
+
+entity ArchivingProvider {
+	displayText String,
+    pageNumberQrCode Long,
+    xPositionQrCode Long,
+    yPositionQrCode Long
+}
+
+entity ArchivingElement {
+	pageNumberQrCode Long,
+    xPositionQrCode Long,
+    yPositionQrCode Long
+}
+
+entity SigningElement {
+	xPositionSignature Long,
+    yPositionSignature Long,
+    pagePositionSignature Long
+    extraPageSignature Boolean,
+    serverSigning Boolean
+}
+
+entity SigningElementSonnective {
+	documentGroupConnectiveName String
+}
+
+entity SigningElementType {
+	sortOrder Long,
+    xPositionSignature Long,
+    yPositionSignature Long,
+    pageNumberSignature Long,
+    signingAction String
+}
+
+relationship ManyToMany {
+	Application{users(id)} to User{applications},
+    Application{roles(id)} to Role{applications},
+    Application{documentTypes(id)} to DocumentType{applications}
+}
+relationship OneToMany {
+    User to SigningUser{userId},
+    Gateway to Provider{gatewayId},
+    User to RoleUser{UserId},
+    Role to RoleUser{RoleId},
+    Application to SigningApplicationConnective{applicationId},
+    DocumentType to SigningElement{documentTypeId},
+    Provider to SigningElement{providerId},
+    SigningElement to SigningElementType{signingElementId},
+    User to SigningElementTyp{euserId},
+    Role to SigningElementType{roleId},
+    SigningElement to SigningElementConnective{signingElementId},
+    DocumentType to ArchivingElement{documentTypeId},
+    Provider to ArchivingElement{providerId},
+    Provider to ProviderCredentials{providerId},
+    Provider to ArchivingProvider{providerId}
+}
+
+// Set pagination options
+paginate User, Documenttype, Application, Role with pagination
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except User, Documenttype, Application, Role
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
