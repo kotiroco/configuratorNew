@@ -1,5 +1,5 @@
 
-entity User {
+entity Gebruiker {
 	name String,
     firstName String,
     email String,
@@ -23,21 +23,22 @@ entity Application {
 }
 
 relationship ManyToMany {
-	Application{users(id)} to User{applications}
+	Application{gebruiker(id)} to Gebruiker{applications}
 }
 relationship OneToMany {
-    User to SigningUser,
-    User to RoleUser,
+    Gebruiker to SigningUser,
+    Gebruiker to RoleUser,
 }
 
 // Set pagination options
-paginate User with pagination
+paginate Gerbuiker with pagination
+
 
 // Use Data Transfer Objects (DTO)
 // dto * with mapstruct
 
 // Set service options to all except few
-service all with serviceImpl except User
+service all with serviceImpl except Gebruiker
 
 // Set an angular suffix
 // angularSuffix * with mySuffix
