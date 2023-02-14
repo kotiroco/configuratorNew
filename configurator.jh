@@ -17,6 +17,8 @@ entity Role {
 }
 
 entity RoleUser {
+	from LocalDate,
+    until LocalDate
 }
 
 entity SigningApplicationConnective {
