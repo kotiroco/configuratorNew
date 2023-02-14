@@ -97,20 +97,10 @@ relationship ManyToMany {
 }
 relationship OneToMany {
     User{singingUsers} to SigningUser{userId},
-    Gateway{providers} to Provider{gatewayId},
-    User{roleUsers} to RoleUser{UserId},
-    Role{roleUsers} to RoleUser{RoleId},
-    Application{signingApplicationConnectives} to SigningApplicationConnective{applicationId},
-    DocumentType{signingElements} to SigningElement{documentTypeId},
-    Provider{signingElements} to SigningElement{providerId},
-    SigningElement{singingElemantTypes} to SigningElementType{signingElementId},
-    User{signingElementTypes} to SigningElementTyp{euserId},
-    Role{signingElementTypes} to SigningElementType{roleId},
-    SigningElement{signingApplicationConnectives} to SigningElementConnective{signingElementId},
-    DocumentType{archivingElements} to ArchivingElement{documentTypeId},
-    Provider{archivingElements} to ArchivingElement{providerId},
-    Provider{providerCredendialss} to ProviderCredentials{providerId},
-    Provider{archivingProviders} to ArchivingProvider{providerId}
+}
+
+relationship ManyToOne {
+	SigningUser to User{singingUsers}
 }
 
 // Set pagination options
