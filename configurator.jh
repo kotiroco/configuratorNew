@@ -11,38 +11,9 @@ entity SigningUser {
     handler Boolean
 }
 
-entity Role {
-	name String,
-    active Boolean
-}
-
 entity RoleUser {
 	from LocalDate,
     until LocalDate
-}
-
-entity SigningApplicationConnective {
-	connectiveDocumentGroupName String
-}
-
-entity Gateway {
-	name String,
-    type String,
-    prefixTable String,
-    active Boolean
-}
-
-entity Provider {
-	name String, 
-    description String,
-    authenticationTypeName String,
-    active Boolean
-}
-
-entity DocumentType {
-	name String,
-    description String,
-    active Boolean
 }
 
 entity Application {
@@ -51,66 +22,22 @@ entity Application {
     active Boolean
 }
 
-entity ProviderCredentials {
-	url String,
-    username String,
-    secret String
-}
-
-entity ArchivingProvider {
-	displayText String,
-    pageNumberQrCode Long,
-    xPositionQrCode Long,
-    yPositionQrCode Long
-}
-
-entity ArchivingElement {
-	pageNumberQrCode Long,
-    xPositionQrCode Long,
-    yPositionQrCode Long
-}
-
-entity SigningElement {
-	xPositionSignature Long,
-    yPositionSignature Long,
-    pagePositionSignature Long
-    extraPageSignature Boolean,
-    serverSigning Boolean
-}
-
-entity SigningElementSonnective {
-	documentGroupConnectiveName String
-}
-
-entity SigningElementType {
-	sortOrder Long,
-    xPositionSignature Long,
-    yPositionSignature Long,
-    pageNumberSignature Long,
-    signingAction String
-}
-
 relationship ManyToMany {
-	Application{users(id)} to User{applications},
-    Application{roles(id)} to Role{applications},
-    Application{documentTypes(id)} to DocumentType{applications}
+	Application{users(id)} to User{applications}
 }
 relationship OneToMany {
-    User{singingUsers} to SigningUser{userId},
-}
-
-relationship ManyToOne {
-	SigningUser to User{singingUsers}
+    User to SigningUser,
+    User to RoleUser,
 }
 
 // Set pagination options
-paginate User, Documenttype, Application, Role with pagination
+paginate User with pagination
 
 // Use Data Transfer Objects (DTO)
 // dto * with mapstruct
 
 // Set service options to all except few
-service all with serviceImpl except User, Documenttype, Application, Role
+service all with serviceImpl except User
 
 // Set an angular suffix
 // angularSuffix * with mySuffix
