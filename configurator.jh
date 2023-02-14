@@ -96,21 +96,21 @@ relationship ManyToMany {
     Application{documentTypes(id)} to DocumentType{applications}
 }
 relationship OneToMany {
-    User to SigningUser{userId},
-    Gateway to Provider{gatewayId},
-    User to RoleUser{UserId},
-    Role to RoleUser{RoleId},
-    Application to SigningApplicationConnective{applicationId},
-    DocumentType to SigningElement{documentTypeId},
-    Provider to SigningElement{providerId},
-    SigningElement to SigningElementType{signingElementId},
-    User to SigningElementTyp{euserId},
-    Role to SigningElementType{roleId},
-    SigningElement to SigningElementConnective{signingElementId},
-    DocumentType to ArchivingElement{documentTypeId},
-    Provider to ArchivingElement{providerId},
-    Provider to ProviderCredentials{providerId},
-    Provider to ArchivingProvider{providerId}
+    User{singingUsers} to SigningUser{userId},
+    Gateway{providers} to Provider{gatewayId},
+    User{roleUsers} to RoleUser{UserId},
+    Role{roleUsers} to RoleUser{RoleId},
+    Application{signingApplicationConnectives} to SigningApplicationConnective{applicationId},
+    DocumentType{signingElements} to SigningElement{documentTypeId},
+    Provider{signingElements} to SigningElement{providerId},
+    SigningElement{singingElemantTypes} to SigningElementType{signingElementId},
+    User{signingElementTypes} to SigningElementTyp{euserId},
+    Role{signingElementTypes} to SigningElementType{roleId},
+    SigningElement{signingApplicationConnectives} to SigningElementConnective{signingElementId},
+    DocumentType{archivingElements} to ArchivingElement{documentTypeId},
+    Provider{archivingElements} to ArchivingElement{providerId},
+    Provider{providerCredendialss} to ProviderCredentials{providerId},
+    Provider{archivingProviders} to ArchivingProvider{providerId}
 }
 
 // Set pagination options
