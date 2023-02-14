@@ -6,33 +6,9 @@ entity Gebruiker {
     userId String
     active Boolean
 }
-entity SigningUser {
-    provider Boolean,
-    handler Boolean
-}
-
-entity RoleUser {
-	from LocalDate,
-    until LocalDate
-}
-
-entity Application {
-	name String,
-    code String,
-    active Boolean
-}
-
-relationship ManyToMany {
-	Application{gebruiker(id)} to Gebruiker{applications}
-}
-relationship OneToMany {
-    Gebruiker to SigningUser,
-    Gebruiker to RoleUser,
-}
 
 // Set pagination options
 paginate Gerbuiker with pagination
-
 
 // Use Data Transfer Objects (DTO)
 // dto * with mapstruct
